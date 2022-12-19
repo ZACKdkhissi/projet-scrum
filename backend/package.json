@@ -3,15 +3,19 @@
   "version": "1.0.0",
   "description": "methode agile",
   "main": "server.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.4",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.20"
   }

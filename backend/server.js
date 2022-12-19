@@ -1,5 +1,63 @@
+import express from "express";
+import cors from "cors";
+import postRoutes from "./router/posts.js"
+import userRoutes from "./router/users.js"
+import authRoutes from "./router/auth.js"
+import cookieParser from "cookie-parser";
+import { db } from "./db.js";
 
 
+//const express = require("express");
+//require("./router/posts.js");
+//import './router/posts.js';
+
+
+const app=express();
+app.use(cors());
+app.use(cookieParser());
+
+
+
+
+app.use(express.json());
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/posts", postRoutes);
+
+
+
+
+
+
+
+app.listen(3001, () => {
+    console.log("run on 3001");
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
@@ -58,4 +116,4 @@ app.post("/login", (req, res) => {
 
 app.listen(3001, () => {
     console.log("run on 3001");
-})
+})*/
