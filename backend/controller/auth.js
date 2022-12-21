@@ -13,16 +13,10 @@ export const register = async(req,res) => {
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(req.body.password, salt);
 
-        const q ="INSERT INTO userss(`username`,`password`,`nom`,`prenom`,`email`,`role`) VALUE (?)";
+        const q ="INSERT INTO users(`username`,`password`,`role`) VALUE (?)";
         const values = [req.body.username,
             hash,
-            req.body.nom,
-            req.body.prenom,
-            req.body.email,
             req.body.role,
-
-
-
 
         ];
 
@@ -38,15 +32,15 @@ export const register = async(req,res) => {
 
 
 export const login = (req,res) => {
-    const q="SELECT * FROM userss WHERE username = ?";
+    const q="SELECT * FROM users WHERE username = ?";
     db.query(q, [req.body.username], (err, data) =>{
         if(err) return res.status(500).json(err);
         if(data.length === 0) return res.status(404).json("n'existe pas !!");
 
         const checlPassword = bcrypt.compareSync(req.body.password, data[0].password);
-        if(!checlPassword) return res.status(400).json("ereur");
+        if(!checlPassword) return res.status(400).json("err");
          
-        const token = jwt.sign({ id: data[0].id }, "secretkey");
+        const token = jwt.sign({ id_user: data[0].id_user }, "secretkey");
 
         const {password, ...orthers } = data[0];
 

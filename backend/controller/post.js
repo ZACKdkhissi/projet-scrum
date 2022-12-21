@@ -24,7 +24,7 @@ export const getPosts = (req,res) => {
 
 
 
-export const getPost = (req,res) => {
+/*export const getPost = (req,res) => {
     const q = "SELECT * FROM userss"; 
 
      db.query(q, (err,data) => {
@@ -33,7 +33,7 @@ export const getPost = (req,res) => {
          return res.status(200).json(data)
      })
     
-}
+}*/
 
 export const addPost = (req,res) => {
 const token = req.cookies.accessToken;

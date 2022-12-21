@@ -3,6 +3,7 @@ import cors from "cors";
 import postRoutes from "./router/posts.js"
 import userRoutes from "./router/users.js"
 import authRoutes from "./router/auth.js"
+import questionRoutes from "./router/questions.js"
 import cookieParser from "cookie-parser";
 import { db } from "./db.js";
 
@@ -23,6 +24,8 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/questions", questionRoutes);
+
 
 
 
