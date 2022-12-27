@@ -3,6 +3,7 @@ import cors from "cors";
 import postRoutes from "./router/posts.js"
 import userRoutes from "./router/users.js"
 import authRoutes from "./router/auth.js"
+import reponseRoutes from "./router/reponse.js"
 import questionRoutes from "./router/questions.js"
 import cookieParser from "cookie-parser";
 import { db } from "./db.js";
@@ -14,8 +15,21 @@ import { db } from "./db.js";
 
 
 const app=express();
-app.use(cors());
-app.use(cookieParser());
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Credentials", true);
+    next();
+  });
+
+  app.use(express.json());
+
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+    })
+  );
+  
+  app.use(cookieParser());
+
 
 
 
@@ -26,9 +40,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/questions", questionRoutes);
 
-
-
-
+app.use("/api/reponse", reponseRoutes);
 
 
 
