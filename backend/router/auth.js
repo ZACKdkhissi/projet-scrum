@@ -8,6 +8,7 @@ router.post("/login", login);
 router.get("/logout", logout);
 router.get("/user",getUser);
 
+
 router.post("/AddEtudiant",addEtudiants);
 router.get("/Etudiants",getEtudiants);
 router.post("/AddProfesseur",AddProfesseur);

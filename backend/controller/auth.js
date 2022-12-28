@@ -96,7 +96,8 @@ jwt.verify(token, "secretkey", (err, userInfo) => {
       
     
    else if(userInfo.role=="Etudiant"){  
-    var sql ="select * from etudiant where id_user=?";
+    var sql ="select username , password ,nom,prenom,email,date_naissance ,niveau from etudiant INNER JOIN users ON (etudiant.id_user = users.id_user) where etudiant.id_user=?";
+    
     db.query(sql,userInfo.id_user ,(err,data)=> {
         if(err) return res.send(err)
  
@@ -112,17 +113,31 @@ jwt.verify(token, "secretkey", (err, userInfo) => {
 
 
 
- 
+// export const UpdateUser = (req,res) => {
+// }
  
 // interface admin
 
 
 
 export const AddProfesseur = (req,res) => {
+    
+
+    const q="SELECT * FROM users WHERE username = ?";
+    db.query(q, [req.body.username], (err, data) =>{
+        if(err) return res.status(500).json(" test");
+        if(data.length) return res.status(409).json("ce username est deja existe");
+         //hash password
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(req.body.password, salt);
+
+
+
+
     const q = "INSERT INTO users (`username`,`password`,`role`) VALUES (?)";
     const values = [
         req.body.username,
-        req.body.password,
+        hash,
        req.body.role
     ];
     db.query(q, [values], (err, result) => {
@@ -147,15 +162,24 @@ export const AddProfesseur = (req,res) => {
         })
     }
     })
-    
+});
+
     }
     
      
 export const addEtudiants = (req,res) => {
+    const q="SELECT * FROM users WHERE username = ?";
+    db.query(q, [req.body.username], (err, data) =>{
+        if(err) return res.status(500).json(" test");
+        if(data.length) return res.status(409).json("ce username est deja existe");
+         //hash password
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(req.body.password, salt);
+
     const q = "INSERT INTO users (`username`,`password`,`role`) VALUES (?)";
     const values = [
         req.body.username,
-        req.body.password,
+        hash,
        req.body.role
     ];
     db.query(q, [values], (err, result) => {
@@ -180,7 +204,7 @@ export const addEtudiants = (req,res) => {
         })
     }
     })
-    
+});
     }
     
     
@@ -217,4 +241,3 @@ export const getEtudiants = (req,res) => {
      
 
 })}
-     
