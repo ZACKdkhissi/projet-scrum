@@ -50,7 +50,7 @@ export const getQuestions = (req,res) => {
 
        const q = "delete from question where id_question=? and id_user=?";
        const values = [
-        req.params.id,
+        req.params.id_question,
         userInfo.id_user
      ];
        db.query(q, [values], (err, data) => {

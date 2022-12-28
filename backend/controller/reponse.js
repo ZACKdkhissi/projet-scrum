@@ -52,7 +52,7 @@ export const deletereponse = (req,res) => {
    const q = "DELETE  FROM reponse WHERE id_reponse=?  and id_user=?";
    
    db.query(q,[
-    req.params.id,
+    req.params.id_reponse,
         userInfo.id_user
 ],
 (err,data)=>{
@@ -72,7 +72,7 @@ export const updatereponse = (req,res) => {
    const values = [
     moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
        req.body.detail_reponse,
-       req.params.id,
+       req.params.id_reponse,
        userInfo.id_user
    ]
    db.query(q,values,(err,data)=>{
