@@ -81,8 +81,9 @@ jwt.verify(token, "secretkey", (err, userInfo) => {
     if(err)return res.status(403).json("Token is not valid 2");
     if(userInfo.role == "Professeur"){
         //console.log('done');
-        var sql ="select * from professeur where id_user=?";
-      
+
+        var sql ="select username , password ,nom,prenom,email ,departement from professeur INNER JOIN users ON (professeur.id_user = users.id_user) where professeur.id_user=?";
+
         db.query(sql,userInfo.id_user ,(err,data)=> {
             if(err) {return res.status(500).json("err")};
            
