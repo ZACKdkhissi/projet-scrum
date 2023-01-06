@@ -1,0 +1,21 @@
+.search{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid themed("border");
+    border-radius: 5px;
+    padding: 5px;
+    width: 10cm;
+}
+.ss{
+    border: none;
+    width: 500px;
+    background-color: transparent;
+    color: themed("textColor");
+    display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid themed("border");
+        border-radius: 5px;
+        padding: 5px;
+}
