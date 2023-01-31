@@ -1,4 +1,6 @@
 import "./navbar.scss";
+import "./Navbar.css";
+
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
@@ -23,9 +25,7 @@ const Navbar = () => {
     <div className="navbar">
       <div className="left">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span>logo</span>
-          
-
+          <span><img className="sz" src="./logo.png" alt="" /></span>
         </Link>
         <HomeOutlinedIcon />
         {darkMode ? (
@@ -37,13 +37,11 @@ const Navbar = () => {
         
       </div>
       <div className="right">
-        <PersonOutlinedIcon />
-        <NotificationsOutlinedIcon />
+        { darkMode ? ((currentUser.role=="Etudiant" || currentUser.role=="Prof") && <Link to="/page5" className="cl2"><PersonOutlinedIcon /></Link>):((currentUser.role=="Etudiant" || currentUser.role=="Prof") && <Link to="/page5" className="cl3"><PersonOutlinedIcon /></Link>)}
         <LogoutIcon onClick={logout} />
-
         <div className="user">
           <img
-            src={"/upload/" + currentUser.profilePic}
+            src="z.png"
             alt=""
           />
           <span>{currentUser.username}</span>

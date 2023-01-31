@@ -13,6 +13,8 @@ import { makeRequest } from "../../axios";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import axios from "axios";
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 
 const Post = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false);
@@ -98,9 +100,11 @@ const Post = ({ post }) => {
       <div className="container">
         <div className="user">
           <div className="userInfo">
-            <img  alt="" />
+            <img src="z.png" alt="" />
             <div className="details">
             <span className="name">{post.username}</span>
+
+
 
               <span className="date">{moment(post.date_question).fromNow()}</span>
             </div>
@@ -130,6 +134,8 @@ const Post = ({ post }) => {
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
             voir reponses
+            <Chip className="ecr" label={post.categorie} color="primary" size="sm" />
+
           </div>
           
         </div>

@@ -41,6 +41,7 @@ const Comments = ({ id_question }) => {
 
   return (
     <div className="comments">
+      { (currentUser.role=="Prof" || currentUser.role=="Etudiant") &&
       <div className="write">
         
         <input
@@ -50,7 +51,7 @@ const Comments = ({ id_question }) => {
           onChange={(e) => setDesc(e.target.value)}
         />
         <button onClick={handleClick}>envoyer</button>
-      </div>
+      </div>}
       {error
         ? "Something went wrong"
         : isLoading

@@ -36,6 +36,8 @@
             background-color: transparent;
             width: 60%;
             color: themed("textColor");
+            height: 2cm;
+            
           }
         }
         .right {
@@ -88,7 +90,7 @@
           button {
             border: none;
             padding: 5px;
-            color: white;
+            color: rgb(245, 245, 245);
             cursor: pointer;
             background-color: #5271ff;
             border-radius: 3px;

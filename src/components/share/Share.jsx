@@ -12,29 +12,44 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { makeRequest } from "../../axios";
 import axios from "axios";
 import Post from "../post/Post";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Box from '@mui/material/Box';
+
+
+
+
+
+
 const Share = () => {
+
+
+  
+
+
+
   const [input, setInput] = useState({
-    detail_question: "",
+        detail_question: "",
+        categorie: "",
   });
   const { currentUser } = useContext(AuthContext);
-  const [desc, setDesc] = useState({
-    detail_question: "",
-  });
-  //const queryClient = useQueryClient();
   const mutation = useMutation(
-    (aa) => {
-      return makeRequest.post("/questions",input);
-    }
-  );
-  const handlChange = (e) => {
-    setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        (aa) => {
+          return makeRequest.post("/questions",input);
+        }
+        );
+        const handlChange = (e) => {
+          setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleClick = async (e) => {
-    e.preventDefault();
-    mutation.mutate({desc});
-    window.location.reload();
+        e.preventDefault();
+        mutation.mutate({input});
+        window.location.reload();
   };
+  
   const [search,setSearch] = useState("");
 
   const { isLoading, error, data } = useQuery(["questions"], () =>
@@ -110,41 +125,60 @@ const Share = () => {
           <div className="search">
           <SearchOutlinedIcon />
           <input className="ss" type="text" placeholder="Search..." onChange={(event)=>{setSearch(event.target.value)}}  />
-        </div>
-    <div className="share">
+        </div>{currentUser.role=="Etudiant" &&
+      <div className="share">
       <div className="container">
         <div className="top">
           <div className="left">
-            <img  alt="" />
-            <input
+            <img src="z.png" alt="" />
+            <input className="cl"
               type="text"
-              placeholder={`What's on your mind ${currentUser.username}?`}
+              placeholder={`écrivez votre question ${currentUser.username}?`}
               onChange={handlChange}
               name="detail_question"
             />
-          </div>
-          
+          </div>         
         </div>
         <hr />
         <div className="bottom">
-          <div className="left">
-            
-            <label htmlFor="file">
-              <div className="item">
-                <img src={Image} alt="" />
-                <span>Add Image</span>
-              </div>
-            </label>
+          <div className="left"> 
+    <div>
+            <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel >categorie</InputLabel>
+        <Select
+          id="demo-simple-select"
+          name="categorie"
+          label="Role"
+          onChange={handlChange}
+          >
+          <MenuItem >------------</MenuItem>
           
+          <MenuItem value={"cateA"}>cateA</MenuItem>
+          <MenuItem value={"cateB"}>cateB</MenuItem>
+          <MenuItem value={"cateC"}>cateC</MenuItem>
+          <MenuItem value={"cateD"}>cateD</MenuItem>
+          <MenuItem value={"cateE"}>cateE</MenuItem>
+
+        </Select>
+      </FormControl>
+    </Box>
+    </div>
+
+
           </div>
           <div className="right">
-            <button onClick={handleClick}>Share</button>
+            <button onClick={handleClick}>Partager</button>
           </div>
         </div>
       </div>
       
 
     </div>
+    
+    }
+            <hr />
+
     {error
         ? "Something went wrong!"
         : isLoading

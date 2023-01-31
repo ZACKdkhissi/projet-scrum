@@ -29,18 +29,21 @@ const Login = () => {
 
   return (
     <div className="login">
+              <img className="sz1" src="./dark.png" alt="" />
+
       <div className="card">
         <div className="left">
-          <h1>Hello World.</h1>
+          <h1></h1>
           <p>
             
           </p>
-          <span>Don't you have an account?</span>
-          <Link to="/register">
+          <span></span>
+         { /*<Link to="/register">
             <button>Register</button>
-          </Link>
+          </Link>*/}
         </div>
         <div className="right">
+
           <h1>Login</h1>
           <form>
             <input
@@ -56,7 +59,7 @@ const Login = () => {
               onChange={handleChange}
             />
             <button onClick={handleLogin}>Login</button>
-            {err && <p>ereeur</p>}
+            {err && <p className="vb">Mot de pass ou username incorrect !!!</p>}
 
           </form>
         </div>

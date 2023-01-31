@@ -15,7 +15,13 @@ import Fund from "../../assets/13.png";
 import { AuthContext } from "../../context/authContext";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import SchoolIcon from '@mui/icons-material/School';
+import Face6RoundedIcon from '@mui/icons-material/Face6Rounded';
+import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
+import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
 const LeftBar = () => {
 
   const { currentUser, logout } = useContext(AuthContext);
@@ -34,30 +40,59 @@ const LeftBar = () => {
   return (
     <div className="leftBar">
       <div className="container">
+
         <div className="menu">
           <div className="user">
             <img
-              src={"/upload/" +currentUser.profilePic}
+              src="z.png"
               alt=""
             />
-            <span>{currentUser.username}</span>
+            <span className="kb">{currentUser.username}</span>
           </div>
+          <br />
           {currentUser.role=="Admin" && 
+            <div className="tl">
             <div className="item">
             <img  alt="" />
-            <Link className="ab-1" to="/page1">page1</Link>
+            <SchoolIcon className="ab-2" /><Link className="ab-2" to="/page1">Ajouter un Etudiant</Link>
           </div>
+          <br/>
+
+        <div className="item">
+        <img  alt=""/>
+        <Face6RoundedIcon className="ab-2" /><Link className="ab-2" to="/page2">Ajouter un professeur</Link>
+        </div>        
+
+        <br/>
+
+        <div className="item">
+        <img  alt=""/>
+        <GroupRoundedIcon className="ab-2" /><Link className="ab-2" to="/page3">Etudiants</Link>
+        </div>  
+        <br/>
+
+        <div className="item">
+        <img  alt=""/>
+        <PersonOutlineRoundedIcon className="ab-2" /><Link className="ab-2" to="/page4">Professeurs</Link>
+        </div>  
+        </div>
+
           }
           
         </div>
-        <hr />
+        
         <div className="menu">
+          {(currentUser.role=="Etudiant" || currentUser.role=="Prof") &&
+          <div>
         <div className="item">
             <img  alt="" />
-            <Link className="ab-1" to="/">question</Link>
+            <QuestionAnswerIcon className="ab-1" /><Link className="ab-1" to="/"> question</Link>
           </div>
+          <div className="item">
+          <img  alt="" />
+          <VpnKeyIcon className="ab-1" /><Link className="ab-1" to="/page6"> mot de pass</Link>
+        </div></div>}
         </div>
-        <hr />
         <div className="menu">
         
         </div>

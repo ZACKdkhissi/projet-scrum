@@ -17,6 +17,11 @@ import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/authContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Page1 from "./pages/page1/Page1";
+import Page2 from "./pages/page2/page2";
+import Page3 from "./pages/page3/Page3";
+import Page4 from "./pages/page4/Page4";
+import Page5 from "./pages/page5/Page5";
+import Page6 from "./pages/page6/Page6";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -69,6 +74,26 @@ function App() {
         {
           path: "/page1",
           element: <Page1 />,
+        },
+        {
+          path: "/page2",
+          element: <Page2 />,
+        },
+        {
+          path: "/page3",
+          element: <Page3 />,
+        },
+        {
+          path: "/page4",
+          element: <Page4 />,
+        },
+        {
+          path: "/page5",
+          element: <Page5 />,
+        },
+        {
+          path: "/page6",
+          element: <Page6 />,
         },
       ],
     },
