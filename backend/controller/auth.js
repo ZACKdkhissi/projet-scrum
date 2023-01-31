@@ -1,6 +1,8 @@
 import { db } from "../db.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { ROLES } from "../constants.js";
+
 
 
 // interface user
@@ -73,44 +75,7 @@ export const logout =async (req,res) => {
 
 
 
-export const getUser = (req,res) => {
-const token= req.cookies.accessToken;
-if(!token) return res.status(403).json("Token is not valid 1");
-jwt.verify(token, "secretkey", (err, userInfo) => {
-  
-    if(err)return res.status(403).json("Token is not valid 2");
-    if(userInfo.role == "Professeur"){
-        //console.log('done');
 
-        var sql ="select username , password ,nom,prenom,email ,departement from professeur INNER JOIN users ON (professeur.id_user = users.id_user) where professeur.id_user=?";
-
-        db.query(sql,userInfo.id_user ,(err,data)=> {
-            if(err) {return res.status(500).json("err")};
-           
-            return res.status(200).json(data);
-    
-                  
-        })
-    
-       }
-
-      
-    
-   else if(userInfo.role=="Etudiant"){  
-    var sql ="select username , password ,nom,prenom,email,date_naissance ,niveau from etudiant INNER JOIN users ON (etudiant.id_user = users.id_user) where etudiant.id_user=?";
-    
-    db.query(sql,userInfo.id_user ,(err,data)=> {
-        if(err) return res.send(err)
- 
-        return res.status(200).json(data);
-
-              
-    })
-   }
-    
-    })
-   
-}
 
 
 
@@ -121,124 +86,5 @@ jwt.verify(token, "secretkey", (err, userInfo) => {
 
 
 
-export const AddProfesseur = (req,res) => {
-    
-
-    const q="SELECT * FROM users WHERE username = ?";
-    db.query(q, [req.body.username], (err, data) =>{
-        if(err) return res.status(500).json(" test");
-        if(data.length) return res.status(409).json("ce username est deja existe");
-         //hash password
-        const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(req.body.password, salt);
 
 
-
-
-    const q = "INSERT INTO users (`username`,`password`,`role`) VALUES (?)";
-    const values = [
-        req.body.username,
-        hash,
-       req.body.role
-    ];
-    db.query(q, [values], (err, result) => {
-       
-        
-        if(err) return res.status(500).json(err);
-        else{
-        //console.log(result[id_user]);
-        const d= " insert into  professeur(`nom`,`prenom`,`email`,`departement`,`id_user`) VALUES (?)";
-        
-        const values = [
-              req.body.nom ,
-              req.body.prenom ,
-              req.body.email ,
-             req.body.departement,
-             result.insertId
-
-            ]
-          db.query(d,[values]  ,(err, data) => {
-            if(err) return res.status(500).json(err);
-            return res.status(200).json(data);
-        })
-    }
-    })
-});
-
-    }
-    
-     
-export const addEtudiants = (req,res) => {
-    const q="SELECT * FROM users WHERE username = ?";
-    db.query(q, [req.body.username], (err, data) =>{
-        if(err) return res.status(500).json(" test");
-        if(data.length) return res.status(409).json("ce username est deja existe");
-         //hash password
-        const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(req.body.password, salt);
-
-    const q = "INSERT INTO users (`username`,`password`,`role`) VALUES (?)";
-    const values = [
-        req.body.username,
-        hash,
-       req.body.role
-    ];
-    db.query(q, [values], (err, result) => {
-       
-        
-        if(err) return res.status(500).json(err);
-        else{
-        //console.log(result[id_user]);
-        const d = "INSERT INTO etudiant (`nom`,`prenom`,`date_naissance`,`email`,`niveau`,`id_user`) VALUES (?)";
-        const values = [
-            req.body.nom,
-            req.body.prenom,
-            req.body.date_naissance,
-            req.body.email,
-            req.body.niveau,
-             result.insertId
-
-            ]
-          db.query(d,[values]  ,(err, data) => {
-            if(err) return res.status(500).json(err);
-            return res.status(200).json(data);
-        })
-    }
-    })
-});
-    }
-    
-    
-    
-
-
-
-    
-
-    export const getProfesseurs = (req,res) => {
-        
-        var sql ="select * from professeur w";
-        db.query(sql,(err,data)=> {
-            if(err) return res.send(err)
-     
-            return res.status(200).json(data);
-    
-                  
-        })
-         
-    
-    
-}
-export const getEtudiants = (req,res) => {
-    
-    
-    var sql ="select * from etudiant where id_user=?";
-    db.query(sql,userInfo.id_user ,(err,data)=> {
-        if(err) return res.send(err)
- 
-        return res.status(200).json(data);
-
-     
-     
-
-})}

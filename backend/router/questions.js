@@ -8,7 +8,4 @@ router.post("/", addQuestion);
 router.delete("/:id_question",deleteQuestion);
 
 
-
-
-
 export default router;

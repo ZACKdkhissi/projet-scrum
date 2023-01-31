@@ -8,7 +8,7 @@ export const getQuestions = (req,res) => {
     /* const q = req.query.categ
      ?`SELECT * FROM posts WHERE categ=?`
      : `SELECT * FROM posts`;*/
-     const q=`SELECT Q.*,username FROM question AS Q JOIN users AS u ON (u.id_user=Q.id_user)`;
+     const q=`SELECT Q.*,username FROM question AS Q JOIN users AS u ON (u.id_user=Q.id_user) ORDER BY date_question DESC`;
      db.query(q, (err,data) => {
          if(err) return res.send(err)
  
@@ -24,13 +24,15 @@ export const getQuestions = (req,res) => {
     jwt.verify(token, "secretkey", (err, userInfo) => {
         if(err)return res.status(403).json("Token is not valid 2");
     
-        const q = "INSERT INTO question (`id_user`,`detail_question`,`date_question`,`categorie`) VALUES (?)";
+        const q = "INSERT INTO question (`id_user`,`detail_question`,`categorie`,`date_question`) VALUES (?)";
         const values = [
             userInfo.id_user,
             req.body.detail_question,
+            req.body.categorie,
+
            
             moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-            req.body.categorie,
+            //req.body.categorie,
             
         ];
     
@@ -53,7 +55,7 @@ export const getQuestions = (req,res) => {
         req.params.id_question,
         userInfo.id_user
      ];
-       db.query(q, [values], (err, data) => {
+       db.query(q, values, (err, data) => {
        if(err) return res.status(500).json(err);
        return res.status(200).json(data);
             })
