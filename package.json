@@ -1,0 +1,20 @@
+{
+   "name": "projet-scrum",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "build": "cd backend node server.js",
+        "test": "cd backend nodemon server.js",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ZACKdkhissi/projet-scrum.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/ZACKdkhissi/projet-scrum/issues"
+    },
+    "homepage": "https://github.com/ZACKdkhissi/projet-scrum#readme"
+}
