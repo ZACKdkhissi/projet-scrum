@@ -1,0 +1,22 @@
+.AA{
+    width: 20cm;
+    height: 1cm;
+}
+.A{
+    width: 20cm;
+    height: 1cm;
+}
+.BB{
+    margin-left: 3cm;
+    margin-top: 1cm;
+    margin-bottom: 2cm;
+}
+.sm-3{
+    margin-left: 8cm;
+    margin-top: 1cm;
+    color: rgba(21, 21, 113, 0.748);
+}
+.sm-4{
+    margin-top: 1cm;
+    width: 20cm;
+}
