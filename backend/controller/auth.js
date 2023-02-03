@@ -1,13 +1,18 @@
 import { db } from "../db.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { ROLES } from "../constants.js";
+
+
+
+// interface user
 
 export const register = async(req,res) => {
     
     //verifier si le compte des deja existe
     const q="SELECT * FROM users WHERE username = ?";
     db.query(q, [req.body.username], (err, data) =>{
-        if(err) return res.status(500).json(err);
+        if(err) return res.status(500).json(" test");
         if(data.length) return res.status(409).json("ce compte deja existe");
          //hash password
         const salt = bcrypt.genSaltSync(10);
@@ -40,12 +45,13 @@ export const login = (req,res) => {
         const checlPassword = bcrypt.compareSync(req.body.password, data[0].password);
         if(!checlPassword) return res.status(400).json("err");
          
-        const token = jwt.sign({ id_user: data[0].id_user }, "secretkey");
-
+        const token = jwt.sign({ id_user: data[0].id_user, role: data[0].role }, "secretkey");
+      
+     
+      
         const {password, ...orthers } = data[0];
 
-        res.
-        cookie("accessToken", token,{
+        res.cookie("accessToken", token,{
             httpOnly: true,
         })
         .status(200)
@@ -54,25 +60,31 @@ export const login = (req,res) => {
 });
 };
 
-export const logout = (req,res) => {
-   res.clearCookie("access token",{
+export const logout =async (req,res) => {
+   
+
+    res.clearCookie("accessToken",{
+        
     sameSite:"none",
     secure:true
    }).status(200).json("logoutt");
-
+   
+ 
 }
 
-export const getUser = (req,res) => {
-    /*const q=`SELECT * FROM userss where `;
-    db.query(q, (err,data) => {
-        if(err) return res.send(err)
 
-        return res.status(200).json(data)
-    })
-   /* if(req.session.username){
-        res.send({loggedIn:true, username: req.session.username});
-    }else{
-        res.send({loggedIn:false});
-    }*/
+
+
+
+
+
+
+// export const UpdateUser = (req,res) => {
+// }
  
- }
+// interface admin
+
+
+
+
+
